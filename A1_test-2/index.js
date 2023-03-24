@@ -26,7 +26,7 @@ function fibonacci(num) {
   }
   
   // test the checkBelongs function with a given number
-  const checkNumber = 5;
+  const checkNumber = 4;
   if (checkBelongs(checkNumber)) {
     console.log(`${checkNumber} belongs to the Fibonacci sequence.`);
   } else {

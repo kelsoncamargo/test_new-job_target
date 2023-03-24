@@ -1,63 +1,48 @@
-const dailySales = {
-    "01": 1000,
-    "02": 1500,
-    "03": 800,
-    "04": 1200,
-    "05": 0,
-    "06": 500,
-    "07": 2000,
-    "08": 700,
-    "09": 1100,
-    "10": 900,
-    "11": 1300,
-    "12": 1800,
-    "13": 0,
-    "14": 1000,
-    "15": 2000,
-    "16": 1500,
-    "17": 700,
-    "18": 900,
-    "19": 800,
-    "20": 1000,
-    "21": 1200,
-    "22": 1500,
-    "23": 1700,
-    "24": 1900,
-    "25": 1000,
-    "26": 800,
-    "27": 1300,
-    "28": 1700,
-    "29": 0,
-    "30": 1200,
-    "31": 1500
-  };
-
-
-  function calculateSalesStatistics(sales) {
-    const daysWithSales = Object.values(sales).filter(value => value !== 0);
-    const salesSum = daysWithSales.reduce((acc, value) => acc + value, 0);
-    const salesAverage = salesSum / daysWithSales.length;
+const monthlyRevenue = [
+  { dia: 1, valor: 22174.1664 },
+  { dia: 2, valor: 24537.6698 },
+  { dia: 3, valor: 26139.6134 },
+  { dia: 4, valor: 0.0 },
+  { dia: 5, valor: 0.0 },
+  { dia: 6, valor: 26742.6612 },
+  { dia: 7, valor: 0.0 },
+  { dia: 8, valor: 42889.2258 },
+  { dia: 9, valor: 46251.174 },
+  { dia: 10, valor: 11191.4722 },
+  { dia: 11, valor: 0.0 },
+  { dia: 12, valor: 0.0 },
+  { dia: 13, valor: 3847.4823 },
+  { dia: 14, valor: 373.7838 },
+  { dia: 15, valor: 2659.7563 },
+  { dia: 16, valor: 48924.2448 },
+  { dia: 17, valor: 18419.2614 },
+  { dia: 18, valor: 0.0 },
+  { dia: 19, valor: 0.0 },
+  { dia: 20, valor: 35240.1826 },
+  { dia: 21, valor: 43829.1667 },
+  { dia: 22, valor: 18235.6852 },
+  { dia: 23, valor: 4355.0662 },
+  { dia: 24, valor: 13327.1025 },
+  { dia: 25, valor: 0.0 },
+  { dia: 26, valor: 0.0 },
+  { dia: 27, valor: 25681.8318 },
+  { dia: 28, valor: 1718.1221 },
+  { dia: 29, valor: 13220.495 },
+  { dia: 30, valor: 8414.61 }
+  ];
   
-    const lowestSales = Math.min(...Object.values(sales));
-    const highestSales = Math.max(...Object.values(sales));
+  // lowest daily revenue
+  const lowestvalor = Math.min(...monthlyRevenue.map((dia) => dia.valor));
+  console.log(`Lowest daily revenue: ${lowestvalor}`);
   
-    const daysAboveAverage = Object.values(sales).reduce((acc, value) => {
-      if (value > salesAverage) {
-        return acc + 1;
-      } else {
-        return acc;
-      }
-    }, 0);
+  // highest daily revenue
+  const highestvalor = Math.max(...monthlyRevenue.map((dia) => dia.valor));
+  console.log(`Highest daily revenue: ${highestvalor}`);
   
-    return {
-      lowestSales,
-      highestSales,
-      daysAboveAverage
-    };
-  }
+  // monthly average, ignoring dias with no revenue
+  const diasWithRevenue = monthlyRevenue.filter((dia) => dia.valor > 0);
+  const monthlyAverage = diasWithRevenue.reduce((total, dia) => total + dia.valor, 0) / diasWithRevenue.length;
   
-  const salesStatistics = calculateSalesStatistics(dailySales);
-  console.log(`Lowest daily sales: ${salesStatistics.lowestSales}`);
-  console.log(`Highest daily sales: ${salesStatistics.highestSales}`);
-  console.log(`Number of days with sales above average: ${salesStatistics.daysAboveAverage}`);
-  
+  // number of dias with daily revenue above the monthly average
+  const diasAboveAverage = diasWithRevenue.filter((dia) => dia.valor > monthlyAverage).length;
+  console.log(`Number of dias with daily revenue above the monthly average: ${diasAboveAverage}`);
